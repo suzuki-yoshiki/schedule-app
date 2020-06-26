@@ -12,6 +12,8 @@ gem 'bootstrap-sass'
 gem 'will_paginate' 
 gem 'bootstrap-will_paginate'
 gem 'jquery-rails'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
