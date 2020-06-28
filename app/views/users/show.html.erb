@@ -9,9 +9,15 @@
     </tr>
 
     <tr>
-      <td>クラス</td>
+      <td>クラス：<%= @user.category_class.present? ? @user.category_class : "未定" %></td>
       <td>名前：<%= @user.name %></td>
-      <td>学籍番号</td>
+      <td>
+        <% if @user.teacher? %>
+          教員番号：<%= @user.teacher_uid %>
+        <% elsif @user.admin? != "true" && @user.teacher? != "true" %>
+          学籍番号：<%= @user.student_uid %>
+        <% end %>
+      </td>
       <td>出席日数</td>
     </tr>
   </table>

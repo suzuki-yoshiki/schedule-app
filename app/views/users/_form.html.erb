@@ -7,6 +7,17 @@
   <%= f.label :email, class: "label-#{yield(:class_text)}" %>
   <%= f.email_field :email, class: "form-control" %>
 
+  <%= f.label :category_class, class: "label-#{yield(:class_text)}" %>
+  <%= f.select :category_class, ["1A", "2A", "3A"], class: "form-control" %>
+
+ <% if @user.teacher? %>
+  <%= f.label :teacher_uid, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :teacher_uid, class: "form-control" %>
+ <% end %>
+ <% if !current_user.teacher?  &&  !current_user.admin?  %>
+  <%= f.label :student_uid, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :student_uid, class: "form-control" %>
+ <% end %>
   <%= f.label :password, class: "label-#{yield(:class_text)}" %>
   <%= f.password_field :password, class: "form-control" %>
 

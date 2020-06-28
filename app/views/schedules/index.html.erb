@@ -1,7 +1,7 @@
+<% provide(:title, 'Schedule Index') %>
 <div class="row">
-  <div id="calendar" class="col-md-6 col-md-offset-1">
-    <p>スケジュール</p>
-    <%= link_to 'New Schedule', new_user_schedule_path %>
+ <p>スケジュール</p>
+  <div id="calendar" class="col-md-6">
   </div>
 
   <div class="col-md-3">
@@ -20,6 +20,7 @@
       </thead>
 
       <tbody>
+      <%= link_to 'New Schedule', new_user_schedule_path %>
         <% @schedules.each do |schedule| %>
           <tr>
             <td><%= schedule.title %></td>
@@ -31,7 +32,7 @@
             <td><%= schedule.end_date %></td>
             <td><%= link_to 'Show', user_schedule_path(@user, schedule) %></td>
             <td><%= link_to 'Edit', edit_user_schedule_path(@user, schedule) %></td>
-            <td><%= link_to 'Destroy', user_schedule_path(@user, id:schedule.id), method: :delete, data: { confirm: 'スケジュールの削除しますか？' } %></td>
+            <td><%= link_to 'Destroy', user_schedule_path(@user, id:schedule.id), method: :delete, data: { confirm: "「#{schedule.title}」を削除します。よろしいですか？" } %></td>
           </tr>
         <% end %>
       </tbody>

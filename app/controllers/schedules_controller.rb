@@ -63,7 +63,7 @@ class SchedulesController < ApplicationController
   def destroy
     @schedule.destroy
     respond_to do |format|
-      format.html { redirect_to user_schedules_url, notice: 'Schedule was successfully destroyed.' }
+      format.html { redirect_to user_schedules_url }
       format.json { head :no_content }
       flash[:danger] = "削除しました"
     end
@@ -81,6 +81,6 @@ class SchedulesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def schedule_params
-      params.require(:schedule).permit(:title, :description, :start_time, :end_time, :start_date, :end_date)
+      params.require(:schedule).permit(:title, :description, :worked_on, :start_time, :end_time, :start_date, :end_date)
     end
 end

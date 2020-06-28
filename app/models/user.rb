@@ -11,6 +11,30 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      # IDが見つかれば、レコードを呼び出し、見つかれなければ、新しく作成
+      user = find_by(id: row["id"]) || new
+      # CSVからデータを取得し、設定する
+      user.attributes = row.to_hash.slice(*updatable_attributes)
+      # 保存する
+      user.save
+    end
+  end
+
+  # 更新を許可するカラムを定義
+  def self.updatable_attributes
+    ["name", "email", "password", "teacher_uid", "student_uid", "category_class", "admin", "teacher"]
+  end
+
+  def self.search(search) #ここでのself.はUser.を意味する
+    if search
+      where(['name LIKE ?', "%#{search}%"])#検索とnameの部分一致を表示。User.は省略
+    else
+      all #全て表示。User.は省略
+    end
+  end
+
   # 渡された文字列のハッシュ値を返します。
   def User.digest(string)
     cost = 
@@ -32,11 +56,11 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, User.digest(remember_token))
   end
   # トークンがダイジェストと一致すればtrueを返します。
-def authenticated?(remember_token)
-  # ダイジェストが存在しない場合はfalseを返して終了します。
-  return false if remember_digest.nil?
-  BCrypt::Password.new(remember_digest).is_password?(remember_token)
-end
+  def authenticated?(remember_token)
+    # ダイジェストが存在しない場合はfalseを返して終了します。
+    return false if remember_digest.nil?
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
 
   # ユーザーのログイン情報を破棄します。
   def forget

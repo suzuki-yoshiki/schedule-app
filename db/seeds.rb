@@ -18,6 +18,7 @@ User.create!(name: "教師A",
     email: "samplea@email.com",
     password: "password",
     password_confirmation: "password",
+    teacher_uid: "ID_1000",
     admin: false,
     teacher: true)
     
@@ -25,6 +26,7 @@ User.create!(name: "教師B",
       email: "sampleb@email.com",
       password: "password",
       password_confirmation: "password",
+      teacher_uid: "ID_2000",
       admin: false,
       teacher: true)
      
@@ -33,13 +35,17 @@ User.create!(name: "教師B",
 name  = Faker::Name.name
 email = "sample-#{n+1}@email.com"
 password = "password"
+student_uid = "ID_#{n+1}"
 User.create!(name: name,
     email: email,
     password: password,
     password_confirmation: password,
+    student_uid: student_uid,
     admin: false,
     teacher: false)
 end
+
+puts "Users Created"
 
 admin_user = User.first
 guest_user = User.find(2)
@@ -47,8 +53,10 @@ guest_user = User.find(2)
 @users = User.order(:created_at).take(3)
 3.times do |n|
   title = Faker::Lorem.sentence(2)
-  description = Faker::Lorem.sentence(5)
+  description = Faker::Lorem.sentence(2)
   @users.each { |user| user.schedules.create!(title: title, description: description) }
   admin_user.schedules.create!(title: title, description: description)
   guest_user.schedules.create!(title: title, description: description)
 end
+
+puts "Schedules Created"

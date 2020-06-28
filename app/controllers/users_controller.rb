@@ -5,7 +5,22 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = if params[:search]
+    User.paginate(page: params[:page], per_page: 20).search(params[:search])
+    else
+      User.paginate(page: params[:page], per_page: 20)
+    end
+  end
+
+  def import
+    if params[:file].blank?
+      flash[:danger] = "CSVファイルが選択されてません"
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = "CSVファイルのみ選択してください"
+    else User.import(params[:file])
+      flash[:success] = "インポートしました"
+    end
+    redirect_to users_url
   end
 
   def show
@@ -49,7 +64,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :category_class, :teacher_uid, :student_uid, :password, :password_confirmation)
     end
 
     # beforeフィルター

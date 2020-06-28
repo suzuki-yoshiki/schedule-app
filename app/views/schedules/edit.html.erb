@@ -1,3 +1,4 @@
+<% provide(:title, 'Schedule Edit') %>
 <h1>Editing Schedule</h1>
 
 <%= form_with(model: @schedule, url: user_schedule_path(@user, @schedule), local: true, method: :patch) do |form| %>
@@ -21,6 +22,11 @@
   <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :worked_on %>
+    <%= form.date_select :worked_on, { discard_month: true }, class: "form-control" %>
   </div>
 
   <div class="field">

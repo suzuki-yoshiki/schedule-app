@@ -9,9 +9,11 @@ ja:
           email: メールアドレス
           password: パスワード
           password_confirmation: パスワード再入力
+          teacher_uid: 教員番号
+          student_uid: 学籍番号
+          category_class: クラス
           created_at: 作成日
           updated_at: 更新日
-          
         schedule:
           title: タイトル
           description: 詳細
