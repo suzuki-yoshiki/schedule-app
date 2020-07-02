@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 # coding: utf-8
 
-User.create!(name: "校長",
+User.create!(name: "管理者",
   email: "sample@email.com",
   password: "password",
   password_confirmation: "password",
@@ -19,6 +19,7 @@ User.create!(name: "教師A",
     password: "password",
     password_confirmation: "password",
     teacher_uid: "ID_1000",
+    category_class: "1A",
     admin: false,
     teacher: true)
     
@@ -27,15 +28,16 @@ User.create!(name: "教師B",
       password: "password",
       password_confirmation: "password",
       teacher_uid: "ID_2000",
+      category_class: "2A"
       admin: false,
       teacher: true)
      
 
-50.times do |n|
+30.times do |n|
 name  = Faker::Name.name
 email = "sample-#{n+1}@email.com"
 password = "password"
-student_uid = "ID_#{n+1}"
+student_uid = "ID_#{n+3000}"
 User.create!(name: name,
     email: email,
     password: password,
@@ -50,8 +52,8 @@ puts "Users Created"
 admin_user = User.first
 guest_user = User.find(2)
 
-@users = User.order(:created_at).take(3)
-3.times do |n|
+@users = User.order(:created_at).take(1)
+2.times do |n|
   title = Faker::Lorem.sentence(2)
   description = Faker::Lorem.sentence(2)
   @users.each { |user| user.schedules.create!(title: title, description: description) }

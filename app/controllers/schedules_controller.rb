@@ -6,7 +6,8 @@ class SchedulesController < ApplicationController
   # GET /schedules.json
   def index
     @user = User.find(params[:user_id])
-    @schedules = @user.schedules
+    @schedules = Schedule.all
+    @schedule = Schedule.new
   end
 
   # GET /schedules/1
@@ -27,7 +28,7 @@ class SchedulesController < ApplicationController
   # POST /schedules.json
   def create
     @user = User.find(params[:user_id])
-    @schedule = @user.schedules.build(schedule_params)
+    @schedule = @user.schedules.create(schedule_params)
     respond_to do |format|
       if @schedule.save
         format.html { redirect_to user_schedules_url }

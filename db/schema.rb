@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_095426) do
+ActiveRecord::Schema.define(version: 2020_06_30_071708) do
 
   create_table "schedules", force: :cascade do |t|
     t.string "title"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_095426) do
     t.string "teacher_uid"
     t.string "student_uid"
     t.string "category_class"
+    t.string "category_work"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

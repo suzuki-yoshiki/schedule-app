@@ -14,7 +14,7 @@
   <%= f.label :teacher_uid, class: "label-#{yield(:class_text)}" %>
   <%= f.text_field :teacher_uid, class: "form-control" %>
  <% end %>
- <% if !current_user.teacher?  &&  !current_user.admin?  %>
+ <% if !@user.teacher?  &&  !@user.admin?  %>
   <%= f.label :student_uid, class: "label-#{yield(:class_text)}" %>
   <%= f.text_field :student_uid, class: "form-control" %>
  <% end %>

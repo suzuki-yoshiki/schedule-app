@@ -1,11 +1,17 @@
 <% provide(:title, @user.name) %>
+<h1>マイページ</h1>
 <div>
   <table class="table table-bordered table-condensed user-table">
     <tr>
-      <td>時間管理表</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>
+        <% if @user.teacher? %>
+          <%= @user.category_work = "教師" %>
+        <% elsif @user.admin? != "true" && @user.teacher? != "true" %>
+          <%= @user.category_work = "生徒" %>
+        <% end %>
+      </td>
+      <td>ID：<%= @user.id %></td>
+      <td>メールアドレス：<%= @user.email %></td>
     </tr>
 
     <tr>
@@ -18,7 +24,7 @@
           学籍番号：<%= @user.student_uid %>
         <% end %>
       </td>
-      <td>出席日数</td>
     </tr>
   </table>
+  <%= link_to "メール作成", "#", class: "btn btn-lg btn-success" %>
 </div>

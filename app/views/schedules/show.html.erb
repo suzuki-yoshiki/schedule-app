@@ -20,23 +20,23 @@
           </tr>
           <tr>
             <th class="active"><%= Schedule.human_attribute_name :worked_on %></th>
-            <td><%= @schedule.worked_on %></td>
+            <td><%= l(@schedule.worked_on, format: :year, default: '-') %></td>
           </tr>
           <tr>
             <th class="active"><%= Schedule.human_attribute_name :start_date %></th>
-            <td><%= @schedule.start_date %></td>
+            <td><%= l(@schedule.start_date, format: :date, default: '-') %></td>
           </tr>
           <tr>
             <th class="active"><%= Schedule.human_attribute_name :end_date %></th>
-            <td><%= @schedule.end_date %></td>
+            <td><%= l(@schedule.end_date, format: :date, default: '-') %></td>
           </tr>
           <tr>
             <th class="active"><%= Schedule.human_attribute_name :start_time %></th>
-            <td><%= @schedule.start_time %></td>
+            <td><%= l(@schedule.start_time, format: :time, default: '-') %></td>
           </tr>
           <tr>
             <th class="active"><%= Schedule.human_attribute_name :end_time %></th>
-            <td><%= @schedule.end_time %></td>
+            <td><%= l(@schedule.end_time, format: :time, default: '-') %></td>
           </tr>
         </tbody>
       </table>
