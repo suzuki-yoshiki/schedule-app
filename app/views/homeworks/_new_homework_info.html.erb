@@ -1,0 +1,86 @@
+<% provide(:class_text, 'basic-info') %>
+<% provide(:button_text, '提出の確認') %>
+
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <%= form_with(model: @user, url: update_home_work_user_homework_path, local: true, method: :patch) do |f| %>
+      <% @users.each do |user| %>
+       <h1 class="modal-title">【<%= user.name %>からの提出物】</h1>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <table class="table table-bordered table-condensed user-table" id="table-attendances">
+                  <thead> 
+                    <tr>
+                      <th>日付</th>
+                      <th>曜日</th>
+                      <th>課題a</th>
+                      <th>課題b</th>
+                      <th>課題c</th>
+                      <th>提出状況</th>
+                      <th>チェック</th>
+                      <th>感想</th>
+                    </tr>
+                  </thead>
+                <% @homeworks.each do |home| %>
+                  <%= f.fields_for "homeworks[]", home do |i| %>
+                    <% if home.user_id == user.id && home.check_teacher_answer == "提出中" && current_user.name == home.teacher_flag %>
+                        <tbody>
+                          <tr>
+                            <td><%= l(home.work_on, format: :short) %></td>
+                            <td>
+                              <% if home.work_on.wday == 6 %>
+                                <font color="blue">土</font>
+                              <% elsif home.work_on.wday == 0 %>
+                                <font color="red">日</font>
+                              <% elsif home.work_on.wday == 1 %>
+                                <font color="black">月</font>
+                              <% elsif home.work_on.wday == 2 %>
+                                <font color="black">火</font>
+                              <% elsif home.work_on.wday == 3 %>
+                                <font color="black">水</font>
+                              <% elsif home.work_on.wday == 4 %>
+                                <font color="black">木</font>
+                              <% elsif home.work_on.wday == 5 %>
+                                <font color="black">金</font>
+                              <% end %>            
+                            </td>
+                            <td>
+                            <% if home.mark_homeworka == "課題a提出中" %>
+                              <%= home.mark_homeworka %><%= i.check_box :work_namea %>
+                            <% end %>
+                            </td>
+                            <td>
+                            <% if home.mark_homeworkb == "課題b提出中" %>
+                              <%= home.mark_homeworkb %><%= i.check_box :work_nameb %>
+                            <% end %>
+                            </td>
+                            <td>
+                            <% if home.mark_homeworkc == "課題c提出中" %>
+                              <%= home.mark_homeworkc %><%= i.check_box :work_namec %>
+                            <% end %>
+                            </td>
+                            <td><%= i.select :check_teacher_answer, ["完了確認", "修正確認"], include_blank: true, class: "form-control" %></td>
+                            <td><%= i.check_box :check %></td>
+                            <td><%= home.note %></td>
+                          </tr>
+                        </tbody>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </table>
+            </div>
+           <% end %>
+          <div class="center">
+            <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  work_on: 2020-07-03
+  note: MyString
+  work_namea: false
+  work_nameb: false
+  work_namec: false
+  user: one
+
+two:
+  work_on: 2020-07-03
+  note: MyString
+  work_namea: false
+  work_nameb: false
+  work_namec: false
+  user: two

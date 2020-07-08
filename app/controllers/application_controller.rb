@@ -13,14 +13,14 @@ class ApplicationController < ActionController::Base
     @last_day = @first_day.end_of_month
     one_month = [*@first_day..@last_day] # 対象の月の日数を代入します。
     # ユーザーに紐付く一ヶ月分のレコードを検索し取得します。
-    @schedules = @user.schedules.where(worked_on: @first_day..@last_day).order(:worked_on)
+    @homeworks = @user.homeworks.where(work_on: @first_day..@last_day).order(:work_on)
 
-    unless one_month.count == @schedules.count # それぞれの件数（日数）が一致するか評価します。
+    unless one_month.count == @homeworks.count # それぞれの件数（日数）が一致するか評価します。
       ActiveRecord::Base.transaction do # トランザクションを開始します。
         # 繰り返し処理により、1ヶ月分の勤怠データを生成します。
-        one_month.each { |day| @user.schedules.create!(worked_on: day) }
+        one_month.each { |day| @user.homeworks.create!(work_on: day) }
       end
-        @schedules = @user.schedules.where(worked_on: @first_day..@last_day).order(:worked_on)
+        @homeworks = @user.homeworks.where(work_on: @first_day..@last_day).order(:work_on)
     end
 
   rescue ActiveRecord::RecordInvalid # トランザクションによるエラーの分岐です。

@@ -28,7 +28,7 @@ User.create!(name: "教師B",
       password: "password",
       password_confirmation: "password",
       teacher_uid: "ID_2000",
-      category_class: "2A"
+      category_class: "2A",
       admin: false,
       teacher: true)
      

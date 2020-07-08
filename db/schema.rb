@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_071708) do
+ActiveRecord::Schema.define(version: 2020_07_05_212309) do
+
+  create_table "homeworks", force: :cascade do |t|
+    t.date "work_on"
+    t.string "note"
+    t.boolean "work_namea"
+    t.boolean "work_nameb"
+    t.boolean "work_namec"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "teacher_flag"
+    t.string "work_check"
+    t.string "mark_homeworka"
+    t.string "mark_homeworkb"
+    t.string "mark_homeworkc"
+    t.string "edit_mark_homeworka"
+    t.string "edit_mark_homeworkb"
+    t.string "edit_mark_homeworkc"
+    t.boolean "check"
+    t.string "check_teacher_answer"
+    t.index ["user_id"], name: "index_homeworks_on_user_id"
+  end
 
   create_table "schedules", force: :cascade do |t|
     t.string "title"

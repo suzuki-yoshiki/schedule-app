@@ -1,0 +1,65 @@
+<% provide(:class_text, 'basic-info') %>
+<% provide(:button_text, '提出') %>
+
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title">【課題一覧】</h1>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <%= form_with(model: @homeworks, url: update_work_info_user_homework_path(@user, @homework), local: true, method: :patch) do |f| %>
+            <%= f.hidden_field :check_teacher_answer, :value => "提出中" %>
+            <table class="table table-bordered table-condensed user-table">
+               <thead> 
+                <tr>
+                  <td>日付</td>
+                  <td>曜日</td>
+                  <td>課題a</td>
+                  <td>課題b</td>
+                  <td>課題c</td>
+                  <td>感想</td>
+                  <td>教師選択</td>
+                </tr>
+               </thead>
+               <tbody>
+                <tr>
+                  <td><%= l(@homework.work_on, format: :short) %></td>
+                  <td>
+                    <% if @homework.work_on.wday == 6 %>
+                      <font color="blue">土</font>
+                    <% elsif @homework.work_on.wday == 0 %>
+                      <font color="red">日</font>
+                    <% elsif @homework.work_on.wday == 1 %>
+                      <font color="black">月</font>
+                    <% elsif @homework.work_on.wday == 2 %>
+                      <font color="black">火</font>
+                    <% elsif @homework.work_on.wday == 3 %>
+                      <font color="black">水</font>
+                    <% elsif @homework.work_on.wday == 4 %>
+                      <font color="black">木</font>
+                    <% elsif @homework.work_on.wday == 5 %>
+                      <font color="black">金</font>
+                    <% end %>            
+                  </td>
+                  <td><%= f.check_box :work_namea, id: "remember-me" %></td>
+                  <td><%= f.check_box :work_nameb, id: "remember-me" %></td>
+                  <td><%= f.check_box :work_namec, id: "remember-me" %></td>
+                  <td><%= f.text_field :note, class: "form-control" %></td>
+                  <td><%= f.collection_select(:teacher_flag, @teacher, :name, :name, include_blank: true) %></td>
+                </tr>
+               </tbody>
+            </table>
+            <div class="center">
+              <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

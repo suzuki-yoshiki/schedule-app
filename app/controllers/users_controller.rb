@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
+  before_action :set_one_month, only: :show
 
   def index
     @users = if params[:search]
@@ -24,6 +25,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @work_users = User.joins(:homeworks).group("users.id").size
+    all_work = Homework.all
+    @work_sum = all_work.where(check_teacher_answer: "提出中").where(teacher_flag: @user.name).size
   end
 
   def new

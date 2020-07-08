@@ -1,7 +1,12 @@
 <% provide(:title, "Top") %>
 <div class="center jumbotron top-main">
   <h1>スケジュール変更管理システム</h1>
-
-  <%= link_to "ログイン", login_path, class: "btn btn-lg btn-primary" %>
-  <%= link_to "ユーザー登録", signup_path, class: "btn btn-lg btn-primary" %>
+  <a href='/login' class="btn-flat-simple">
+    <i class="fa fa-caret-right"></i> ログイン
+  </a>
+  <a href='/signup' class="btn-gradient-radius">ユーザー登録</a>
+  <br>
+  <a href="#" class="btn-social-long-twitter">
+    <i class="fa fa-twitter"></i> <span>Follow Me</span>
+  </a>
 </div>
