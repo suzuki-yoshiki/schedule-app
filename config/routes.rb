@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     end
   end
   resources :schedules do
+  post '/callback' => 'linebot#callback'
   get '/schedules.json', to: 'schedules#index'
   end
   resources :videos do
