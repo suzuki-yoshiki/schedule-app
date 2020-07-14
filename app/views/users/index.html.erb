@@ -30,7 +30,13 @@
 
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.name, user %></td>
+        <td>
+        <% if current_user.admin? && !current_user?(user) %>
+          <%= link_to user.name, user %>
+        <% else %>
+          <%= user.name %>
+        <% end %>
+        </td>
         <td>
           <% if current_user.admin? && !current_user?(user) %>
             <%= link_to "基本情報編集", edit_basic_info_user_path(user), remote: true, class: "btn btn-success" %>

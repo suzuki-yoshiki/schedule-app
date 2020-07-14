@@ -49,16 +49,16 @@ end
 
 puts "Users Created"
 
-admin_user = User.first
-guest_user = User.find(2)
+# admin_user = User.first
+# guest_user = User.find(2)
 
-@users = User.order(:created_at).take(1)
-2.times do |n|
-  title = Faker::Lorem.sentence(2)
-  description = Faker::Lorem.sentence(2)
-  @users.each { |user| user.schedules.create!(title: title, description: description) }
-  admin_user.schedules.create!(title: title, description: description)
-  guest_user.schedules.create!(title: title, description: description)
-end
+# @users = User.order(:created_at).take(1)
+# 2.times do |n|
+#   title = Faker::Lorem.sentence(2)
+#   description = Faker::Lorem.sentence(2)
+#   @users.each { |user| user.schedules.create!(title: title, description: description) }
+#   admin_user.schedules.create!(title: title, description: description)
+#   guest_user.schedules.create!(title: title, description: description)
+# end
 
-puts "Schedules Created"
+# puts "Schedules Created"

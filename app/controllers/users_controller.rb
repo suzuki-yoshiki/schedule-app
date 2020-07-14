@@ -25,7 +25,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @work_users = User.joins(:homeworks).group("users.id").size
+    @homework_comps = Homework.where(homeworks: {edit_mark_homeworka: "a完了", edit_mark_homeworkb: "b完了", edit_mark_homeworkc: "c完了", teacher_flag: @user.name})
+    @homework = @homework_comps.find_by(work_on: params[:date])
     all_work = Homework.all
     @work_sum = all_work.where(check_teacher_answer: "提出中").where(teacher_flag: @user.name).size
   end

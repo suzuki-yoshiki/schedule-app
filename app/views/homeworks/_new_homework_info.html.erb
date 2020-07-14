@@ -10,7 +10,7 @@
     </div>
     <%= form_with(model: @user, url: update_home_work_user_homework_path, local: true, method: :patch) do |f| %>
       <% @users.each do |user| %>
-       <h1 class="modal-title">【<%= user.name %>からの提出物】</h1>
+       <h1 class="modal-title">【<%= "#{user.name}からの提出物" %>】</h1>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -75,12 +75,12 @@
                 <% end %>
               </table>
             </div>
-           <% end %>
-          <div class="center">
-            <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>
           </div>
-        <% end %>
+        </div>
+      <% end %>
+      <div class="center">
+        <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>

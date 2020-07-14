@@ -1,6 +1,6 @@
 class HomeworksController < ApplicationController
-  before_action :set_homework, only: [:show, :edit_work_info, :update_work_info, :new_homework_info, :update_home_work]
-  before_action :set_user, only: [:show, :edit_work_info, :update_work_info, :new_homework_info, :update_home_work]
+  before_action :set_homework, only: [:show, :edit_work_info, :update_work_info, :new_homework_info, :update_home_work, :homework_all, :homework_yet]
+  before_action :set_user, only: [:show, :edit_work_info, :update_work_info, :new_homework_info, :update_home_work, :homework_all, :homework_yet]
   before_action :set_one_month, only: [:show, :edit_work_info]
 
   UPDATE_SUBMISSION_ERROR_MSG = "課題の確認に失敗しました。やり直してください。"
@@ -51,6 +51,18 @@ class HomeworksController < ApplicationController
     redirect_to user_url(current_user) and return
   end
 
+  def homework_all
+    @homework = current_user.homeworks.find_by(work_on: params[:date])
+    @users = User.joins(:homeworks).group("users.id").where(homeworks: {edit_mark_homeworka: "a完了", edit_mark_homeworkb: "b完了", edit_mark_homeworkc: "c完了"}).where(homeworks: {teacher_flag: @user.name}).where(homeworks: {work_on: params[:date]})
+    @homeworks = Homework.where(edit_mark_homeworka: "a完了", edit_mark_homeworkb: "b完了", edit_mark_homeworkc: "c完了", teacher_flag: @user.name)
+  end
+
+  def homework_yet
+    @homework = current_user.homeworks.find_by(work_on: params[:date])
+    @users = User.joins(:homeworks).group("users.id").where.not(admin: true, teacher: true).where(homeworks: {edit_mark_homeworka: "a完了"}).where(homeworks: {work_on: params[:date]})
+    @homeworks = Homework.where.not(check_teacher_answer: "完了確認")
+  end
+
   def new_homework_info
     @users = User.joins(:homeworks).group("users.id").where(homeworks: {check_teacher_answer: "提出中"}).where(homeworks: {teacher_flag: @user.name})
     @homeworks = Homework.where(check_teacher_answer: "提出中")
@@ -77,21 +89,24 @@ class HomeworksController < ApplicationController
                 homework.edit_mark_homeworka = "a完了"
               s1 += 1
               else item[:work_namea] == "0"
-                item[:mark_homeworka] = nil
+                item[:mark_homeworka] = "課題a修正"
+                homework.edit_mark_homeworka = nil
               end
               if item[:work_nameb] == "1"
                 item[:mark_homeworkb] = "課題b完了！"
                 homework.edit_mark_homeworkb = "b完了"
               s1 += 1
               else item[:work_nameb] == "0"
-                item[:mark_homeworkb] = nil
+                item[:mark_homeworkb] = "課題b修正"
+                homework.edit_mark_homeworkb = nil
               end
               if item[:work_namec] == "1"
                 item[:mark_homeworkc] = "課題c完了！"
                 homework.edit_mark_homeworkc = "c完了"
               s1 += 1
               else item[:work_namec] == "0"
-                item[:mark_homeworkc] = nil
+                item[:mark_homeworkc] = "課題c修正"
+                homework.edit_mark_homeworkc = nil
               end
             elsif item[:check_teacher_answer] == "修正確認"
               if item[:work_namea] == "1"

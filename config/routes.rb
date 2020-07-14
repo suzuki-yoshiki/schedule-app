@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #resources :posts
   get 'homeworks/show'
   root 'static_pages#top'
   get '/signup', to: 'users#new'
@@ -20,10 +21,14 @@ Rails.application.routes.draw do
       patch 'update_work_info'
       get 'new_homework_info'
       patch 'update_home_work'
+      get 'homework_all'
+      get 'homework_yet'
     end
   end
   resources :schedules do
   get '/schedules.json', to: 'schedules#index'
+  end
+  resources :videos do
   end
 end
 end

@@ -23,3 +23,10 @@ ja:
           end_date: 終了日
           start_time: 開始時間
           end_time: 終了時間
+        homework:
+          work_namea: 課題a
+          work_nameb: 課題b
+          work_namec: 課題c
+        video:
+          body: 題名
+          youtube_url: URL

@@ -1,0 +1,34 @@
+<% provide(:title, "Edit Video") %>
+<h1>動画の編集</h1>
+
+<%= form_with(model: @video, url: user_video_path, local: true, method: :patch) do |form| %>
+  <% if @video.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@video.errors.count, "箇所") %>項目が不足しています</h2>
+
+      <ul>
+      <% @video.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :body, "題名" %>
+    <%= form.text_field :body, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :youtube_url, "URL" %>
+    <%= form.text_field :youtube_url, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to '詳細', user_video_path %> |
+<%= link_to '戻る', user_videos_path %>

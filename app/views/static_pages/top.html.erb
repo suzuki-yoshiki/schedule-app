@@ -1,14 +1,20 @@
 <% provide(:title, "Top") %>
 <div class="center jumbotron top-main">
-  <h1>スケジュール変更管理システム</h1>
-  <a href='/login' class="btn-flat-simple">
-    <i class="fa fa-caret-right"></i> ログイン
-  </a>
-  <a href='/signup' class="btn-gradient-radius">ユーザー登録</a>
-  <br>
-  <a href="https://lin.ee/DGsK87L"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
-  <br>
-  <a href="#" class="btn-social-long-twitter">
-    <i class="fa fa-twitter"></i> <span>Follow Me</span>
-  </a>
+  <h1>スケジュール変更課題学習システム</h1>
+  <% if logged_in? %>
+    <%= submit_tag "ログイン状態です", class: "btn btn-primary btn-form", disabled: "disabled" %>
+  <% else %>
+    <a href='/login' class="btn-flat-simple">
+      <i class="fa fa-caret-right"></i> ログイン
+    </a>
+    <a href='/signup' class="btn-gradient-radius">ユーザー登録</a>
+    <br>
+    <div class="btn-line">
+    <a href="https://lin.ee/DGsK87L"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
+    </div>
+    <br>
+    <a href="#" class="btn-social-long-twitter">
+      <i class="fa fa-twitter"></i> <span>Follow Me</span>
+    </a>
+  <% end %>
 </div>
